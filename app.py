@@ -68,12 +68,13 @@ def Authenticate():
     # password = request.args.get('Password')
     cursor = mysql.connect().cursor()
     # cursor.execute(f"SELECT * from relationship_data where CASEID_NEW = {1203763}" )
-    cursor.execute(f"SELECT * from relationship_data *" )
-    data = cursor.fetchone()
+    cursor.execute("SELECT * FROM relationship_data")
+    data = cursor.fetchall()
     if data is None:
      return "Username or Password is wrong"
     else:
      return jsonify(data)
+     
 
 
 
