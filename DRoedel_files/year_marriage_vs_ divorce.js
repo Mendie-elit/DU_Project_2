@@ -27,8 +27,8 @@ function makeResponsive(){
     var chartGroup = svg.append("g")
     .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
-    // Read the relationship data .csv
-    d3.csv("relationship_data.csv")
+    // Read the relationship data from flask
+    d3.csv("./relationship_data.csv")
     .then(function(relationshipData) {
 
     // create a data parcer
@@ -56,12 +56,106 @@ function makeResponsive(){
         .domain([0, d3.max(relationshipMarData, d => d.CASEID)])
         .range([height, 0]);
 
-// LEAVING OFF HERE:  GO TO C:\Users\Dawn's New Computer\Desktop\UDEN201902DATA4\16-D3\Day_3_Activities\08-Ins_D3_Tip
+    // create axes
+    var xAxis = d3.axisBottom(xYearScale).tickFormat(d3.timeFormat("%y"));
+    var yAxis = d3.axisLeft(yLinearScale).ticks(6);
 
-    }
+    // append axes
+    chartGroup.append("g")
+    .attr("transform", `translate(0, ${height})`)
+    .call(xAxis);
 
+    chartGroup.append("g")
+    .call(yAxis);
 
+    // line generator
+    var line = d3.line()
+    .x(d => xYearScale(d.relationshipMarData))
+    .x(d => xYearScale(d.relationshipBUData))
+    .y(d => yLinearScale(d.CASEID));
 
+    // append marrage year line
+    chartGroupMar.append("path")
+    .data([relationshipMarData])
+    .attr("d", line)
+    .attr("fill", "blue")
+    .attr("stroke", "blue");
 
+    // append divorse year line
+    chartGroupBU.append("path")
+    .data([relationshipBUData])
+    .attr("d", line)
+    .attr("fill", "blue")
+    .attr("stroke", "red");
 
+    // append Marriage circles
+      var circlesGroupMar = chartGroupMar.selectAll("circle")
+        .data(relationshipMarData)
+        .enter()
+        .append("circle")
+        .attr("cx", d => xYearScale(d.w6_q21d_year))
+        .attr("cy", d => yLinearScale(d.CASEID))
+        .attr("r", "10")
+        .attr("fill", "gold")
+        .attr("stroke-width", "1")
+        .attr("stroke", "black");
+
+        var circlesGroupBU = chartGroupBU.selectAll("circle")
+        .data(relationshipBUData)
+        .enter()
+        .append("circle")
+        .attr("cx", d => xYearScale(d.ww6_q21e_year))
+        .attr("cy", d => yLinearScale(d.CASEID))
+        .attr("r", "10")
+        .attr("fill", "silver")
+        .attr("stroke-width", "1")
+        .attr("stroke", "black");
+
+        // Date formatter to display dates nicely
+      var dateFormatter = d3.timeFormat("%y");
+
+      /// Step 1: Initialize Tooltip for Marriage data
+      var toolTipMar = d3.tip()
+      .attr("class", "tooltip")
+      .offset([80, -60])
+      .html(function(d) {
+        return (`<strong>${dateFormatter(d.date)}<strong><hr>${d.circlesGroupMar}
+        medal(s) won`);
+      });
+
+      // Initialize Tooltip for breakup data
+      var toolTipBU = d3.tip()
+        .attr("class", "tooltip")
+        .offset([70, -70])
+        .html(function(d) {
+          return (`<strong>${dateFormatter(d.date)}<strong><hr>${d.circlesGroupBU}
+          medal(s) won`);
+        });
+
+    //  Create the tooltip in chartGroupMar.
+     chartGroupMar.call(toolTip);   
+
+     //  Create the tooltip in chartGroupBU.
+     chartGroupBU.call(toolTip);
+
+    //Create "mouseover" event listener to display each tooltip
+        circlesGroupMar.on("mouseover", function(d) {
+        toolTipMar.show(d, this);
+        
+        circlesGroupBU.on("mouseover", function(d) {
+        toolTipBU.show(d, this);  
+        })
+    // Create "mouseout" event listener to hide tooltip
+        .on("mouseout", function(d) {
+        toolTip.hide(d);
+        });
+    });
 }
+};
+
+// When the browser loads, makeResponsive() is called.
+makeResponsive();
+
+// When the browser window is resized, makeResponsive() is called.
+d3.select(window).on("resize", makeResponsive);
+
