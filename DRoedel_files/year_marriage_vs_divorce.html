@@ -1,41 +1,17 @@
-<!DOCTYPE html>
+<<!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <style>
-            table {
-                border-collapse: collapse;
-                border: 2px black solid;
-                font: 12px sans-serif;
-            }
 
-            td {
-                border: 1px black solid;
-                padding: 5px;
-            }
-        </style>
-    </head>
-    <body>
+  <head>
+    <meta charset="utf-8">
+    <title>Marriage vs Divorce</title>
+    <link rel="stylesheet" type="text/css" href="year_marriage_vs_divorce.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.9.1/d3-tip.js"></script>
+  </head>
 
-        <!-- <script src="https://d3js.org/d3.v4.min.js"></script> -->
-       <script src="https://d3js.org/d3.v4.min.js"></script>
+  <body>
+    <div class="chart"></div>
+    <script type="text/javascript" src="year_marriage_vs_divorce.js"></script>
+  </body>
 
-        <script type="text/javascript"charset="utf-8">
-            d3.text("./relationship_data.csv", function(data) {
-                var parsedCSV = d3.csvParseRows(data);
-
-                var container = d3.select("body")
-                    .append("table")
-
-                    .selectAll("tr")
-                        .data(parsedCSV).enter()
-                        .append("tr")
-
-                    .selectAll("td")
-                        .data(function(d) { return d; }).enter()
-                        .append("td")
-                        .text(function(d) { return d; });
-            });
-        </script>
-    </body>
 </html>
