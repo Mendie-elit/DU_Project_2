@@ -14,8 +14,6 @@ from flask import Flask, jsonify, render_template, request, redirect
 from flaskext.mysql import MySQL
 import pymysql
 
-# db = pymysql.connect("127.0.0.1", "root", "1Lovemykid$", "relationship_data_db")
-
 
 mysql = MySQL()
 app = Flask(__name__)
@@ -58,8 +56,8 @@ def index():
     # sql = "SELECT * FROM relationship_data"
     # cursor.execute(sql)
     # results = cursor.fetchall()
-    return "this worked"
-    # return render_template("index.html")
+#     return "this worked"
+    return render_template("index1.html")
 
 
 @app.route("/Authenticate")
