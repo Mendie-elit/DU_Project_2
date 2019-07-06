@@ -1,0 +1,40 @@
+html,
+body {
+    padding: 0;
+    margin: 0;
+}
+
+.axis {
+    font: 14px sans-serif;
+}
+
+#married_chart {
+    width: 800px;
+    height: 500px;
+}
+
+.tooltipMar {
+    position: absolute;
+    width: 90px;
+    height: 70px;
+    padding: 10px;
+    font: 12px sans-serif;
+    text-align: center;
+    color: white;
+    background: blue;
+    border: 0;
+    border-radius: 10px;
+}
+
+.tooltipBU {
+    position: absolute;
+    width: 90px;
+    height: 70px;
+    padding: 10px;
+    font: 12px sans-serif;
+    text-align: center;
+    color: black;
+    background: red;
+    border: 0;
+    border-radius: 10px;
+}

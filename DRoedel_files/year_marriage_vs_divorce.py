@@ -54,8 +54,8 @@ def index():
     # sql = "SELECT * FROM relationship_data"
     # cursor.execute(sql)
     # results = cursor.fetchall()
-    return "this worked"
-    # return render_template("index.html")
+#     return "this worked"
+    return render_template("static/year_marriage_vs_divorce.html")
 
 
 @app.route("/Authenticate")
