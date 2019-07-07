@@ -30,7 +30,7 @@ function makeResponsive() {
     var width = svgWidth - margin.left - margin.right;
 
     var svg = d3
-        .select(".chart")
+        .select(".married_chart")
         .append("svg")
         .attr("height", svgHeight)
         .attr("width", svgWidth);
@@ -73,7 +73,8 @@ function makeResponsive() {
             var married_data = relationship_data
                 .filter(_ => _.married_year);
             //TODO:
-            var divorced_data = [];
+            var divorced_data = relationship_data
+                .filter(_ => _.divorced_year);
 
             var married_traces = d3
                 .nest()
@@ -92,15 +93,19 @@ function makeResponsive() {
             var divorced_traces = d3
                 .nest()
                 .key(_ => _.type)
-                .key(_ => _.married_year)
+                .key(_ => _.divorced_year)
                 .entries(divorced_data)
-                .map(d3_agg => ({
-                    name: d3_agg.key,
-                    x: d3_agg.values.map(_ => _.key),
-                    y: d3_agg.values.map(_ => _.values.length)
-                }))
+                .map(d3_agg => {
+                    sorted_values = d3_agg.values.sort((a, b) => +a.key - (+b.key))
+                    return ({
+                        name: d3_agg.key,
+                        x: sorted_values.map(_ => _.key),
+                        y: sorted_values.map(_ => _.values.length)
+                    })
+                })
 
-            Plotly.newPlot('married_chart', married_traces, {})
+            Plotly.newPlot('married_chart', married_traces, {});
+            Plotly.newPlot('divorced_chart', divorced_traces, {});
         });
 }
 
