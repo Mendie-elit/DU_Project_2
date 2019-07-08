@@ -1,0 +1,1 @@
+SELECT * FROM relationship_data_db.relationship_data;

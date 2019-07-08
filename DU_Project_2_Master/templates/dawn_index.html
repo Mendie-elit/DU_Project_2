@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>"Year of Marriage/Divorce and sexual orientation"</title>
+    <link rel="stylesheet" type="text/css" href="year_marriage_vs_divorce.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.9.1/d3-tip.js"></script>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 jumbotron text-center">
+                <h1>When do people get married? When do they get divorced?
+                </h1>
+
+                <div class="col-xs-12 col-md-12">
+                    <p class="lead">People have been getting married since the beginning of time. Unfortunately not all marraiges last. The purpose of these graphs are to evaluate when people get married and divorced. What world-wide events may affect fluxuations in
+                        marriages and divorces. In addition, are there trends for Heterosexual or LGBTQIAPK+ now that marriage is legal for everone? Our team took data from a 2017 relationship survey of 3387 people. Check out our ReadMe.md for more source
+                        information on the survey.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+
+    <div id="married_chart"></div>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <!-- <script type="text/javascript" src="app2.js"></script> -->
+
+    <div id="divorced_chart"></div>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <!-- <script type="text/javascript" src="app2.js"></script> -->
+
+    <script src="{{ url_for('static', filename='js/app2.js') }}"></script>
+</body>
+
+</html>
